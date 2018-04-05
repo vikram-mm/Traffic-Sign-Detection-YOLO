@@ -103,23 +103,23 @@ class trial_model1():
                         net = slim.conv2d(net, 1024, 3, scope='conv_23')
                         net = slim.conv2d(net, 512, 1, scope='conv_24')
                         net = slim.conv2d(net, 1024, 3, scope='conv_25')
-                        net = slim.conv2d(net, 1024, 3, scope='conv_26')
-                        net = tf.pad(net, np.array([[0, 0], [1, 1], [1, 1], [0, 0]]), name='pad_27')
-                        net = slim.conv2d(net, 1024, 3, 2, padding='VALID', scope='conv_28')
-                        net = slim.conv2d(net, 1024, 3, scope='conv_29')
-                        net = slim.conv2d(net, 1024, 3, scope='conv_30')
-                        net = tf.transpose(net, [0, 3, 1, 2], name='trans_31')
-                        net = slim.flatten(net, scope='flat_32')
-                        net = slim.fully_connected(net, 512, scope='fc_33_btsd')
-                        net = slim.fully_connected(net, 4096, scope='fc_34_btsd')
-                        net = slim.dropout(net,is_training=is_training, scope='dropout_35_btsd')
+                        net = slim.conv2d(net, 1024, 3, scope='trainable/conv_26')
+                        net = tf.pad(net, np.array([[0, 0], [1, 1], [1, 1], [0, 0]]), name='trainable/pad_27')
+                        net = slim.conv2d(net, 1024, 3, 2, padding='VALID', scope='trainable/conv_28')
+                        net = slim.conv2d(net, 1024, 3, scope='trainable/conv_29')
+                        net = slim.conv2d(net, 1024, 3, scope='trainable/conv_30')
+                        net = tf.transpose(net, [0, 3, 1, 2], name='trainable/trans_31')
+                        net = slim.flatten(net, scope='trainable/flat_32')
+                        net = slim.fully_connected(net, 512, scope='trainable/fc_33_btsd')
+                        net = slim.fully_connected(net, 4096, scope='trainable/fc_34_btsd')
+                        net = slim.dropout(net,is_training=is_training, scope='trainable/dropout_35_btsd')
                         # net = slim.fully_connected(net, num_outputs=(yolo_cell_size*yolo_cell_size)*(20+2*5), #20 - num_classes,
                                                                                                             #2 - boxes per cell
                                                                                                             #5 - x,y,h,w,confidence
                                                 # activation_fn=None, scope='fc_36')
                         
                         net = slim.fully_connected(net, num_outputs,
-                                            activation_fn=None, scope='fc_36_btsd')
+                                            activation_fn=None, scope='trainable/fc_36_btsd')
             self.net = net
 
     def lrelu(self,alpha):
